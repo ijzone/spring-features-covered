@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 
-import com.features.validation.Validation.Person;
+import com.features.validation.sample.Validation;
+import com.features.validation.sample.Validation.Person;
 
 class ValidationTest {
 

@@ -1,4 +1,4 @@
-package com.features.validation;
+package com.features.validation.sample;
 
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -22,6 +22,7 @@ public class Validation implements Validator {
 		Errors errors = new BindException(person, "person");
 		
 		Validation validation = new Validation();
+		validation.supports(person.getClass());
 		validation.validate(person, errors);
 		
 		return "OK";
