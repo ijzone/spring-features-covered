@@ -11,10 +11,10 @@ public interface PersonValidationService extends Validator {
 	 * @param person
 	 * @return
 	 */
-	boolean isAllowed(Person person);
+	boolean isAllowedAge(Person person);
 	
 	/**
-	 * 실행 메서드
+	 * 검증 메서드 실행
 	 * @param target
 	 * @return
 	 */

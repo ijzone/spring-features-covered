@@ -33,7 +33,7 @@ public class PersonValidationServiceImpl implements PersonValidationService {
 			errors.rejectValue("age", "too.darn.old");
 		} 
 
-		if(!this.isAllowed(p)) {
+		if(!this.isAllowedAge(p)) {
 			errors.rejectValue("age", "underage");
 		}
 
@@ -47,7 +47,7 @@ public class PersonValidationServiceImpl implements PersonValidationService {
 	}
 
 	@Override
-	public boolean isAllowed(Person person) {
+	public boolean isAllowedAge(Person person) {
 		if(person.getAge() < 30) {
 			return false;
 		}
@@ -58,12 +58,17 @@ public class PersonValidationServiceImpl implements PersonValidationService {
 	public Long execution(Object target) {
 		boolean supportable = this.supports(target.getClass());
 		if(!supportable) {
-			return 0L;
+			return -1L;
 		}
 		
-		this.validate(target, new BindException(target, "person"));
+		Errors bindException = new BindException(target, "person");
+		this.validate(target, bindException);
 		
 		Person person = (Person) target;
+		if(bindException.hasErrors()) {
+			log.error("bindException.getErrorCount(): {}", bindException.getErrorCount());
+			return -1L;
+		}
 		
 		return person.getId();
 	}
