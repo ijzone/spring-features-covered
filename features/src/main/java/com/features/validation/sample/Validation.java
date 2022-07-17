@@ -9,6 +9,9 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +49,14 @@ public class Validation implements Validator {
 		Person p = (Person) target;
 		
 		log.debug("Name: {} / Age: {}", p.getName(), p.getAge());
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String writeValueAsString = mapper.writeValueAsString(p);
+			log.info("writeValueAsString = {}", writeValueAsString);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		
 		if(p.getAge() < 0) {
 			errors.rejectValue("age", "negativevalue");

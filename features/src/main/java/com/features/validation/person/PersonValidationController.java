@@ -3,6 +3,7 @@ package com.features.validation.person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class PersonValidationController {
 		this.service = service;
 	}
 	
-	@RequestMapping
+	@GetMapping
 	public ResponseEntity<Person> process(@RequestBody Person person) {
 //		Person personEx = new Person(123L, "ij", 35);
 //		Product productEx = new Product(1L, "product");
@@ -38,9 +39,11 @@ public class PersonValidationController {
 		log.info("### personId: {}", personId);
 		
 		if(personId == -1L) {
-			return new ResponseEntity<Person>(person, HttpStatus.BAD_REQUEST);
+//			return new ResponseEntity<Person>(person, HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().body(person);
 		}
-		return new ResponseEntity<Person>(person, HttpStatus.OK);
+//		return new ResponseEntity<Person>(person, HttpStatus.OK);
+		return ResponseEntity.ok(person);
 	}
 	
 }
