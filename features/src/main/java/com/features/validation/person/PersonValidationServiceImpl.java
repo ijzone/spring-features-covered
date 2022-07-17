@@ -25,33 +25,29 @@ public class PersonValidationServiceImpl implements PersonValidationService {
 		ValidationUtils.rejectIfEmpty(errors, "name", "name.empty");
 		Person p = (Person) target;
 
-		log.debug("Name: {} / Age: {}", p.getName(), p.getAge());
+		log.info("Name: {} / Age: {}", p.getName(), p.getAge());
 
-		if (p.getAge() < 0) {
-			errors.rejectValue("age", "negativevalue");
-		} else if(p.getAge() > 110) {
-			errors.rejectValue("age", "too.darn.old");
-		} 
-
-		if(!this.isAllowedAge(p)) {
-			errors.rejectValue("age", "underage");
-		}
+		this.isAllowedAge(p, errors);
 
 		if (errors.hasErrors()) {
 			p.setErrorCount(errors.getErrorCount());
-			log.error("Error Count: {}", errors.getErrorCount());
-			log.error("{}", errors.getAllErrors());
+			p.setAllErrorMessages(errors.getAllErrors().toString());
 		}
 
 		log.info("##### Validation.validate end #####");
 	}
 
 	@Override
-	public boolean isAllowedAge(Person person) {
-		if(person.getAge() < 30) {
-			return false;
+	public void isAllowedAge(Person p, Errors errors) {
+		if(p.getAge() < 30) {
+			if(p.getAge() < 0) {
+				errors.rejectValue("age", "negativevalue");
+			}else {
+				errors.rejectValue("age", "underage");
+			}
+		} else if(p.getAge() > 110) {
+			errors.rejectValue("age", "too.darn.old");
 		}
-		return true;
 	}
 
 	@Override

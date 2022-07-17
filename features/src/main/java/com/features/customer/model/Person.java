@@ -11,6 +11,8 @@ public class Person {
 	private int age;
 	@Setter
 	private int errorCount;
+	@Setter
+	private String allErrorMessages;
 
 	public Person() {}
 	

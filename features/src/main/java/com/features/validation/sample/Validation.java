@@ -1,5 +1,7 @@
 package com.features.validation.sample;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -17,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Validation implements Validator {
 
 	@RequestMapping
-	public String executor() {
+	public ResponseEntity<Person> executor() {
 		Person person = new Person("ij", 120);
 		Errors errors = new BindException(person, "person");
 		
@@ -25,7 +27,10 @@ public class Validation implements Validator {
 		validation.supports(person.getClass());
 		validation.validate(person, errors);
 		
-		return "OK";
+		if(errors.hasErrors()) {
+			return new ResponseEntity<>(person, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(person, HttpStatus.OK);
 	}
 
 	@Override
@@ -50,6 +55,7 @@ public class Validation implements Validator {
 		
 		if(errors.hasErrors()) {
 			p.setErrorCount(errors.getErrorCount());
+			p.setAllErrorMessages(errors.getAllErrors().toString());
 			log.error("Error Count: {}", errors.getErrorCount());
 			log.error("{}", errors.getAllErrors());
 		}
@@ -63,6 +69,8 @@ public class Validation implements Validator {
 		private int age;
 		@Setter
 		private int errorCount;
+		@Setter
+		private String allErrorMessages;
 		
 		public Person(String name, int age) {
 			this.name = name;
