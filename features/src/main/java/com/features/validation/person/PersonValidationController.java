@@ -46,4 +46,10 @@ public class PersonValidationController {
 		return ResponseEntity.ok(person);
 	}
 	
+	@GetMapping
+	public ResponseEntity<Person> personInfo() {
+		
+		
+		return null;
+	}
 }

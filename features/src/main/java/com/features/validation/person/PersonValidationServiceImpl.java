@@ -69,4 +69,9 @@ public class PersonValidationServiceImpl implements PersonValidationService {
 		return person.getId();
 	}
 
+	@Override
+	public Person personInfo(Long id) {
+		return null;
+	}
+
 }

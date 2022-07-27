@@ -20,4 +20,11 @@ public interface PersonValidationService extends Validator {
 	 * @return
 	 */
 	Long execution(Object target);
+	
+	/**
+	 * 사용자 정보 조회
+	 * @param id
+	 * @return
+	 */
+	Person personInfo(Long id);
 }
