@@ -11,13 +11,15 @@
    		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
 
 	<!-- bean definitions here -->
-	<bean id="exam" class="spring.aop.entity.ExamScore" p:kor="1" p:eng="1" p:math="1" p:com="1" />
+	<bean id="target" class="spring.aop.entity.ExamScore" p:kor="1" p:eng="1" p:math="1" p:com="1" />
 	<bean id="logAroundAdvice" class="spring.aop.advice.LogAroundAdvice" />
+	<bean id="logBeforeAdvice" class="spring.aop.advice.LogBeforeAdvice" />
 	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="target" ref="target" />
 		<property name="interceptorNames">
 			<list>
 				<value>logAroundAdvice</value>
+				<value>logBeforeAdvice</value>
 			</list>
 		</property>
 	</bean>		
