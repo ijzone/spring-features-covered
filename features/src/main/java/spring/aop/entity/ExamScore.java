@@ -1,10 +1,12 @@
-package spring.aop;
+package spring.aop.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import spring.aop.entity.Exam;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
 public class ExamScore implements Exam {
