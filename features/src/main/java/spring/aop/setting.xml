@@ -14,12 +14,16 @@
 	<bean id="target" class="spring.aop.entity.ExamScore" p:kor="1" p:eng="1" p:math="1" p:com="1" />
 	<bean id="logAroundAdvice" class="spring.aop.advice.LogAroundAdvice" />
 	<bean id="logBeforeAdvice" class="spring.aop.advice.LogBeforeAdvice" />
+	<bean id="logAfterReturningAdvice" class="spring.aop.advice.LogAfterReturningAdvice" />
+	<bean id="logAfterThrowingAdvice" class="spring.aop.advice.LogAfterThrowingAdvice" />
 	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="target" ref="target" />
 		<property name="interceptorNames">
 			<list>
 				<value>logAroundAdvice</value>
 				<value>logBeforeAdvice</value>
+				<value>logAfterReturningAdvice</value>
+				<value>logAfterThrowingAdvice</value>
 			</list>
 		</property>
 	</bean>		

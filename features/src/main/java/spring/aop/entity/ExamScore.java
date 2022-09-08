@@ -19,6 +19,10 @@ public class ExamScore implements Exam {
 	@Override
 	public int total() {
 		int result = kor + eng + math + com;
+		
+		if(kor > 100) {
+			throw new IllegalArgumentException("유효하지 않은 점수 입니다.");
+		}
 		return result;
 	}
 	
